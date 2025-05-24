@@ -1,2 +1,0 @@
-# bookstore-api
-Test Project
