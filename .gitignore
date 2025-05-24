@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,pycharm,visualstudio,openframeworks+visualstudio,django,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm,visualstudio,openframeworks+visualstudio,django,visualstudiocode
 
+##Mukhsin##
+
+fastapi-bookstore-venv/
+
 ### Django ###
 *.log
 *.pot
