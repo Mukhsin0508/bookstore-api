@@ -53,8 +53,13 @@ class BookService:
         return book
 
     @staticmethod
+    async def delete(db: AsyncSession, book: Book) -> Optional[Book]:
+        """Delete a book"""
+        pass
+
+    @staticmethod
     async def check_stock(db: AsyncSession, book_id: int, quantity: int) -> bool:
-        """Check if a book has enough stock"""
+        """Check if a book has enough stocks"""
         book = await BookService.get(db, book_id)
         if not book:
             return False
