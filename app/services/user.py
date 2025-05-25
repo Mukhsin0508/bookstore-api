@@ -1,5 +1,6 @@
 from typing import Optional
 
+from pydantic import EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -10,7 +11,7 @@ from app.core import get_password_hash, verify_password
 
 class UserService:
     @staticmethod
-    async def get_by_email(db: AsyncSession, email: str) -> Optional[User]:
+    async def get_by_email(db: AsyncSession, email: EmailStr) -> Optional[User]:
         """Get user by email"""
         result = await db.execute(
             select(User).where(User.email == email)
