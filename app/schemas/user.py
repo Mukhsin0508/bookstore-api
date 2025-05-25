@@ -6,8 +6,8 @@ from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 class UserBase(BaseModel):
     email: EmailStr
-    username: str = Field(..., min_length=3, max_length=64)
-    full_name: Optional[str] = Field(..., min_length=10, max_length=64)
+    username: str = Field(..., min_length=3, max_length=100)
+    full_name: str = Field(..., min_length=1, max_length=255)
 
 
 class UserCreate(UserBase):
@@ -15,18 +15,16 @@ class UserCreate(UserBase):
 
     @field_validator("password")
     @classmethod
-    def validate_password(cls, values: str) -> str:
-        if len(values) != 6:
-            raise ValueError("Password must have 6 characters")
-        elif len(values) < 6:
-            raise ValueError("Password must have at least 6 characters")
-        return values
+    def validate_password(cls, v: str) -> str:
+        if len(v) < 6:
+            raise ValueError("Password must be at least 6 characters long")
+        return v
 
 
-class UserUpdate(UserBase):
+class UserUpdate(BaseModel):
     email: Optional[EmailStr] = None
-    username: Optional[str] = Field(None, min_length=3, max_length=64)
-    full_name: Optional[str] = Field(None, min_length=10, max_length=64)
+    username: Optional[str] = Field(None, min_length=3, max_length=100)
+    full_name: Optional[str] = Field(None, min_length=1, max_length=255)
     password: Optional[str] = Field(None, min_length=6)
 
 
@@ -36,11 +34,12 @@ class UserInDBBase(UserBase):
     id: int
     is_active: bool
     is_superuser: bool
+    is_banned: bool
     created_at: datetime
     updated_at: datetime
 
 
-class User(UserBase):
+class User(UserInDBBase):
     pass
 
 
@@ -52,25 +51,11 @@ class UserLogin(BaseModel):
     username: str
     password: str
 
+
 class Token(BaseModel):
     access_token: str
-    token_type: str
+    token_type: str = "bearer"
 
 
 class TokenData(BaseModel):
     username: Optional[str] = None
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
