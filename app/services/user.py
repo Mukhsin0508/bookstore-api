@@ -3,9 +3,9 @@ from typing import Optional
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core import get_password_hash, verify_password
 from app.models import User
 from app.schemas import UserCreate, UserUpdate
+from app.core import get_password_hash, verify_password
 
 
 class UserService:
