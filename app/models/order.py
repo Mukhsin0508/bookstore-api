@@ -1,10 +1,10 @@
-from datetime import datetime
-from decimal import Decimal
 from enum import Enum
+from decimal import Decimal
+from datetime import datetime
 from typing import TYPE_CHECKING, List
 
-from sqlalchemy import DateTime, Enum as SQLEnum, ForeignKey, Numeric, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import DateTime, Enum as SQLEnum, ForeignKey, Numeric, String
 
 from app.database import Base
 

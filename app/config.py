@@ -12,9 +12,18 @@ class Settings(BaseSettings):
     )
     
     PROJECT_NAME: str = "BookStore API"
+    PROJECT_DESCRIPTION: str = "BookStore API Test Task"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
     ENVIRONMENT: str = "development"
+
+    APP_NAME: str
+    REFRESH_TOKEN_EXPIRE_DAYS: int
+    POSTGRES_DB: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    DB_HOST: str
+    DB_PORT: str
     
     # === API Settings ===
     API_V1_STR: str = "/api/v1"

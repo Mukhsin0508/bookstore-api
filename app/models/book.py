@@ -1,5 +1,5 @@
-from datetime import datetime
 from decimal import Decimal
+from datetime import datetime
 from typing import TYPE_CHECKING, List
 
 from sqlalchemy import DateTime, Numeric, String, Text

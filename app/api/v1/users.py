@@ -1,7 +1,7 @@
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.models import User
 from app.database import get_db
@@ -14,16 +14,16 @@ router = APIRouter()
 
 
 @router.get("/me", response_model=UserSchema)
-async def read_user_me(current_user: User = Depends(get_current_active_user)) -> Any:
+async def read_user_me(current_user: User = Depends(get_current_active_user)):
     """Get current user info"""
     return current_user
 
 
-@router.get("/me", response_model=UserSchema)
+@router.put("/me", response_model=UserSchema)
 async def update_user_me(
-    db: AsyncSession,
     user_update: UserUpdate,
-    current_user: User = Depends(get_current_active_user)) ->  Any:
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)):
     """Update current user info"""
     # === Check if email is taken ===
     if user_update.email:

@@ -4,11 +4,9 @@ from typing import Optional, List
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from app.models import (
-    OrderStatus,
-    Book,
-    User
-)
+from app.schemas.book import Book
+from app.schemas.user import User
+from app.models import OrderStatus
 
 
 class OrderItemBase(BaseModel):

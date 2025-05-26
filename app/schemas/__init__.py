@@ -1,6 +1,6 @@
+from .payment import PaymentRequest, PaymentResponse
 from .book import Book, BookCreate, BookList, BookUpdate
 from .order import Order, OrderCreate, OrderList, OrderItem
-from .payment import PaymentRequest, PaymentResponse
 from .user import Token, User, UserCreate, UserLogin, UserUpdate
 
 

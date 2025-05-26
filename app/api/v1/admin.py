@@ -1,14 +1,14 @@
-from typing import Any, Coroutine, Dict, List, Sequence
+from typing import Any, Dict, List, Sequence
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy import Row, RowMapping, select, func
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from app.api.deps import get_current_active_superuser
 from app.database import get_db
-from app.models import User as UserModel, Order, OrderStatus
 from app.schemas import OrderList, User
+from app.models import User as UserModel
 from app.services import OrderService, UserService
+from app.api.deps import get_current_active_superuser
 
 router = APIRouter()
 

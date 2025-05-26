@@ -6,8 +6,8 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from app.models import User
 from app.database import get_db
 from app.services import BookService
+from app.api.deps import get_current_active_superuser
 from app.schemas import Book, BookCreate, BookUpdate, BookList
-from app.api.deps import get_current_active_user, get_current_active_superuser
 
 router = APIRouter()
 

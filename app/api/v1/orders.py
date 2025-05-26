@@ -7,7 +7,8 @@ from app.database import get_db
 from app.services import OrderService
 from app.core.payment import process_payment
 from app.schemas import OrderCreate, OrderList
-from app.models import Order, User, OrderStatus
+from app.models import User, OrderStatus
+from app.schemas import Order
 from app.api.deps import get_current_active_user
 from app.schemas.payment import PaymentRequest, PaymentResponse
 

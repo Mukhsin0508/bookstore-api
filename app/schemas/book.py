@@ -1,8 +1,8 @@
 from decimal import Decimal
-from typing import Optional
+from typing import Optional, Annotated
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, condecimal
 
 
 class BookBase(BaseModel):
@@ -26,7 +26,7 @@ class BookCreate(BookBase):
 class BookUpdate(BaseModel):
     title: Optional[str] = Field(None, min_length=1, max_length=255)
     description: Optional[str] = None
-    price: Optional[Decimal] = Field(None, gt=0, decimal_places=2)
+    price: Optional[Annotated[Decimal, condecimal(gt=0, max_digits=10, decimal_places=2)]] = None
     stock_quantity: Optional[int] = Field(None, ge=0)
     image_url: Optional[str] = None
 
