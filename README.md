@@ -1,5 +1,9 @@
 # BookStore API
 
+Time Spent: 
+
+<a href="https://wakatime.com/badge/user/60731bfe-5801-4003-b6ab-b7db12ed73d0/project/b043173b-3eff-40fd-9a75-9812768a1c1f"><img src="https://wakatime.com/badge/user/60731bfe-5801-4003-b6ab-b7db12ed73d0/project/b043173b-3eff-40fd-9a75-9812768a1c1f.svg" alt="wakatime"></a>
+
 A professional e-commerce book store API built with FastAPI, featuring JWT authentication, role-based access control, and payment simulation.
 
 ## Features
