@@ -49,7 +49,7 @@ async def update_user_me(
 
 @router.get("/{user_id}", response_model=UserSchema)
 async def read_user(
-    user_id: str,
+    user_id: int,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_active_user)) -> Any:
     """Get user by ID"""

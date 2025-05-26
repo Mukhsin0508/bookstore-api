@@ -13,6 +13,8 @@ async def process_payment(card_number: str) -> Tuple[bool, str, str]:
     # === Check ig the last digit is even ===
     last_digit = card_number[-1]
 
+    last_digit = int(last_digit)
+
     if last_digit % 2 == 0:
         # === Payment successful ===
         transaction_id = str(uuid.uuid4())

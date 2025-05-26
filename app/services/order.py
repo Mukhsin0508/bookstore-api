@@ -34,7 +34,7 @@ class OrderService:
             .limit(limit)
             .order_by(Order.created_at.desc())
         )
-        return List(result.scalars().all())
+        return list(result.scalars().all())
 
     @staticmethod
     async def get_all_orders(db: AsyncSession, skip: int = 0, limit: int = 100) -> List[Order]:

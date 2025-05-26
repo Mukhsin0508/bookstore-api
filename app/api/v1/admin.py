@@ -14,9 +14,7 @@ router = APIRouter()
 
 
 @router.get("/statistics", response_model=Dict[str, Any])
-async def get_statistics(
-    db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_active_superuser)) -> Dict[str, Any]:
+async def get_statistics(db: AsyncSession = Depends(get_db)) -> Dict[str, Any]:
     """Get admin statistics"""
     # === Get order stats ===
     order_stats = await OrderService.get_statistics(db=db)
@@ -33,7 +31,7 @@ async def get_statistics(
     active_users = active_users_result.scalar_one()
 
     banned_users_result = await db.execute(
-        select(func.count(UserModel.id)).where(func.count(UserModel.is_banned == True))
+        select(func.count(UserModel.id)).where(UserModel.is_banned == True)
     )
     banned_users = banned_users_result.scalar_one()
 
@@ -50,7 +48,6 @@ async def get_statistics(
 @router.get("/users", response_model=List[User])
 async def get_users(
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_active_superuser),
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=100),
 ) -> Sequence[User]:
@@ -64,10 +61,8 @@ async def get_users(
 
 @router.post("/users/{user_id}/ban", response_model=User)
 async def admin_ban_user(
-    user_id: str,
+    user_id: int,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_active_superuser), # TODO: why are we not checking superuser or using
-    # this current user even?
 ) -> Any:
     """Band user (admin only)"""
     user = await UserService.get(db, user_id)
@@ -82,6 +77,13 @@ async def admin_ban_user(
             detail="You cannot band superusers",
         )
 
+    # # === Avoid self-banning ===
+    # if user.id == user_id:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_400_BAD_REQUEST,
+    #         detail="You cannot band yourself",
+    #     ) # TODO: Implement later
+
     if user.is_banned:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -93,7 +95,7 @@ async def admin_ban_user(
 
 @router.post("/users/{user_id}/unban", response_model=User)
 async def admin_unban_user(
-    user_id: str,
+    user_id: int,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_active_superuser),
 ) -> Any:
@@ -109,14 +111,13 @@ async def admin_unban_user(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="User is not banned",
         )
-    user = await UserService.ban(db, user)
+    user = await UserService.unban(db, user)
     return user
 
 
 @router.post("/orders", response_model=OrderList)
 async def get_all_orders(
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_active_superuser),
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=100),
 ) -> Any:

@@ -44,7 +44,21 @@ cp .env.example .env
 docker-compose up -d
 ```
 
-The API will be available at http://localhost:8000
+The API will be available at http://localhost:8000/docs/
+
+4. To access protected endpoints, you'll need to:
+```text
+To access protected endpoints, you'll need to:
+
+Use the /api/v1/auth/login endpoint to log in with the admin credentials:
+
+Username: mukhsin_mukhtariy
+Password: admin123
+
+
+This will return an access token.
+```
+
 
 ### Manual Installation
 

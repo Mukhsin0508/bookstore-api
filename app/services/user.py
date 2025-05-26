@@ -27,7 +27,7 @@ class UserService:
         return result.scalar_one_or_none()
 
     @staticmethod
-    async def get(db: AsyncSession, user_id: str) -> Optional[User]:
+    async def get(db: AsyncSession, user_id: int) -> Optional[User]:
         """Get user by id"""
         result = await db.execute(
             select(User).where(User.id == user_id)
