@@ -3,8 +3,8 @@
 import pytest
 from httpx import AsyncClient
 
-from app.config import settings
-from app.models import Order, OrderStatus
+from app.models import OrderStatus
+from ..config_test import test_settings as settings
 
 
 @pytest.mark.asyncio
